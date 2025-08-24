@@ -8,7 +8,7 @@ const filters = [
     value: "gifs",
     background:
       "bg-gradient-to-tr from-purple-500 via-purple-600 to purple-500",
-  },+
+  },
   {
     title: "Stickers",
     value: "stickers",
