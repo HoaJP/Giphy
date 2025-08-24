@@ -4,14 +4,13 @@ import { GifState } from "../context/GifContext";
 import Gif from "../components/Gif";
 import FollowOn from "../components/FollowOn";
 
-import { HiOutlineExternalLink } from "react-icons/hi";
+import { HiOutlineExternalLink, HiDownload } from "react-icons/hi";
 import {
   HiMiniChevronDown,
   HiMiniChevronUp,
   HiMiniHeart,
 } from "react-icons/hi2";
 import { FaPaperPlane } from "react-icons/fa6";
-import { IoCodeSharp } from "react-icons/io5";
 
 const contentType = ["gifs", "stickers", "texts"];
 
@@ -40,13 +39,33 @@ const GifPage = () => {
     fetchGif();
   }, []);
 
-  const shareGif = () => {
-    // Assignment
+  const shareGif = () => {};
+
+  const downloadGif = async () => {
+    try {
+      if (!gif || !gif.images?.original?.url) {
+        alert("GIF not available for download");
+        return;
+      }
+
+      const gifUrl = gif.images.original.url;
+      const response = await fetch(gifUrl);
+      const blob = await response.blob();
+
+      // Tạo link ảo để tải xuống
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `${gif.title || "giphy"}.gif`; // tên file
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(link.href);
+    } catch (error) {
+      console.error("Download failed:", error);
+    }
   };
 
-  const EmbedGif = () => {
-    // Assignment
-  };
 
   return (
     <div className="grid grid-cols-4 my-10 gap-4">
@@ -90,11 +109,11 @@ const GifPage = () => {
         <FollowOn />
 
         <div className="divider" />
-{/*  */}
+        {/*  */}
         {gif?.source && (
           <div>
             <span
-              className="faded-text" //custom - faded-text
+              className="text-gray-300" //custom - faded-text
             >
               Source
             </span>
@@ -147,18 +166,18 @@ const GifPage = () => {
               Favorite
             </button>
             <button
-              onClick={shareGif} // Assignment
+              onClick={shareGif}
               className="flex gap-6 items-center font-bold text-lg"
             >
               <FaPaperPlane size={25} />
               Share
             </button>
             <button
-              onClick={EmbedGif} // Assignment
+              onClick={downloadGif} // Download action
               className="flex gap-5 items-center font-bold text-lg"
             >
-              <IoCodeSharp size={30} />
-              Embed
+              <HiDownload size={30} />
+              Download
             </button>
           </div>
         </div>

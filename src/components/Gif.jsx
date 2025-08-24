@@ -17,7 +17,7 @@ const Gif = ({ gif, hover = true }) => {
               alt={gif?.user?.display_name}
               className="h-8"
             />
-            <span>{gif?.user?.display_name}</span>
+            <span>{gif?.user?.display_name ?? "no name"}</span>
           </div>
         )}
       </div>
