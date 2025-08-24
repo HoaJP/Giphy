@@ -53,7 +53,7 @@ const Header = () => {
             )}
             <button onClick={() => setShowCategories(!showCategories)}>
               <HiMiniBars3BottomRight
-                className="text-sky-400 block lg:hidden"
+                className="text-sky-400 block lg:hidden cursor-pointer"
                 size={30}
               />
             </button>

@@ -4,7 +4,11 @@ import { GifState } from "../context/GifContext";
 import Gif from "../components/Gif";
 import FollowOn from "../components/FollowOn";
 
-import { HiOutlineExternalLink, HiDownload } from "react-icons/hi";
+import {
+  HiOutlineExternalLink,
+  HiDownload,
+  HiOutlineClipboard,
+} from "react-icons/hi";
 import {
   HiMiniChevronDown,
   HiMiniChevronUp,
@@ -38,8 +42,6 @@ const GifPage = () => {
 
     fetchGif();
   }, []);
-
-  const shareGif = () => {};
 
   const downloadGif = async () => {
     try {
@@ -118,10 +120,17 @@ const GifPage = () => {
               Source
             </span>
             <div className="flex items-center text-sm font-bold gap-1">
-              <HiOutlineExternalLink size={25} />
+              <HiOutlineExternalLink size={35} />
               <a href={gif.source} target="_blank" className="truncate">
                 {gif.source}
               </a>
+              <button
+                onClick={() => navigator.clipboard.writeText(gif.source)}
+                className="ml-2 text-gray-400 hover:text-white cursor-pointer"
+                title="Copy source link"
+              >
+                <HiOutlineClipboard size={20} />
+              </button>
             </div>
           </div>
         )}
@@ -144,10 +153,6 @@ const GifPage = () => {
                 <div className="font-bold">{gif?.user?.display_name}</div>
                 <div className="faded-text">@{gif?.user?.username}</div>
               </div>
-
-              <button className="ml-auto" onClick={shareGif}>
-                <FaPaperPlane size={25} />
-              </button>
             </div>
             {/* -- Mobile UI -- */}
           </div>
@@ -155,7 +160,7 @@ const GifPage = () => {
           <div className="hidden sm:flex flex-col gap-5 mt-6">
             <button
               onClick={() => addToFavorites(gif.id)}
-              className="flex gap-5 items-center font-bold text-lg"
+              className="flex gap-5 items-center font-bold text-lg cursor-pointer"
             >
               <HiMiniHeart
                 size={30}
@@ -166,15 +171,8 @@ const GifPage = () => {
               Favorite
             </button>
             <button
-              onClick={shareGif}
-              className="flex gap-6 items-center font-bold text-lg"
-            >
-              <FaPaperPlane size={25} />
-              Share
-            </button>
-            <button
               onClick={downloadGif} // Download action
-              className="flex gap-5 items-center font-bold text-lg"
+              className="flex gap-5 items-center font-bold text-lg cursor-pointer"
             >
               <HiDownload size={30} />
               Download

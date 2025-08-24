@@ -19,6 +19,11 @@ const GifSearch = () => {
       <input
         type="text"
         value={query}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            searchGIFs();
+          }
+        }}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search the GIFs and Stickers"
         className="w-full pl-4 pr-14 py-5 text-xl bg-amber-50 text-black rounded-tl rounded-bl border border-gray-300 outline-none"
