@@ -43,6 +43,10 @@ const GifPage = () => {
     fetchGif();
   }, [slug, type]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]);
+
   const downloadGif = async () => {
     try {
       if (!gif || !gif.images?.original?.url) {
