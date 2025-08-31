@@ -41,7 +41,7 @@ const GifPage = () => {
     };
 
     fetchGif();
-  }, []);
+  }, [slug, type]);
 
   const downloadGif = async () => {
     try {
@@ -140,7 +140,7 @@ const GifPage = () => {
         <div className="flex gap-6">
           <div className="w-full sm:w-3/4">
             <div className="faded-text truncate mb-2">{gif.title}</div>
-            <Gif gif={gif} hover={false} />
+            <Gif gif={gif}/>
 
             {/* -- Mobile UI -- */}
             <div className="flex sm:hidden gap-1">
